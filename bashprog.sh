@@ -29,11 +29,11 @@
 # Set the default debug mode
 BPROG_DEBUG=1 # default is 0, set with bprog_set_debug 1 or bprog with --debug flag
 
-bprog_debug "bprog_HOME: $BPROG_HOME"
-
 # Import the necessary libraries
-source ${BPROG_HOME}/lib/bprog-utils.sh
+source ${BPROG_HOME}/lib/bprog-core.sh
 
-# import utility functions
-bprog_load_module "clearlines"
-bprog_load_module "colortext"
+bprog_debug "BPROG_HOME: $BPROG_HOME"
+
+# # import utility functions
+# bprog_load_module "clearlines"
+# bprog_load_module "colortext"
