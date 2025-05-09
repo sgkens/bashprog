@@ -1,5 +1,83 @@
 #!/bin/bash
 
+# ==================================================================
+# File: lib/bprog-core.sh
+# Description: Core functions for bashprog
+# ==================================================================
+
+
+
+# ==================================================================
+# Function: show_helpremaining_descrption_spaces
+# ==================================================================
+# Description:
+#   Show the help message, to be called with the -h or --help option.
+#
+# Examples:
+#   show_help "-b" "--bars" "Generate a progress bar"
+# ==================================================================
+
+help_writer() {
+    local shortform="$1"
+    local longform="$2"
+    local description="$3"
+
+
+    local shlf_spacing=3
+    
+    echo -n "$(clstring "$shortform" "bright_cyan") "
+
+    local shlf_maxlength=10
+    local current_shlf_length=$((${#shortform}+$shlf_spacing))
+    local remaining_shlf_spaces=$(($shlf_maxlength-$current_shlf_length))
+    
+    echo -n "$(printf "%${remaining_shlf_spaces}s" "")"
+
+    echo -n "$(clstring "$longform" "cyan")"
+    
+    local descrption_maxlength=35
+    local current_descrption_length=$((${#longform}+current_shlf_length))
+    local remaining_descrption_spaces=$(($descrption_maxlength-$current_descrption_length))
+    
+    if [[ ${#shortform} -gt 1 ]]; then
+        remaining_descrption_spaces=$((${#shortform}-1+$remaining_descrption_spaces))
+    fi
+
+    echo -n "$(printf "%${remaining_descrption_spaces}s" "")"
+    echo "$(clstring "$description" "gray")"
+}
+
+show_help() {
+    
+    cat << EOF
+
+Usage: bashprog [options] [theme] [percent] [width]
+
+≡$(clstring "Options" "yellow")≡
+  $(help_writer "-h," "--help" "Display this help text")
+  $(help_writer "-d," "--debug" "Sets BPROG_DEBUG to 1, enables debug mode")
+  $(help_writer "-l," "--list [bars|spinners]" "List available themes for bars or spinners")
+  $(help_writer "-b," "--bar" "Switch to bar mode")
+  $(help_writer "-s," "--spinner" "Switch to spinner mode")
+  $(help_writer "-dm," "--demomode" "Switch to Demo mode")
+  $(help_writer "-bc," "--barcolor" "Sets the bar color")
+  $(help_writer "-bbg," "--barbgcolor" "Sets the bar background color")
+  $(help_writer "-ptc," "--pointercolor" "Sets the bar pointer color")
+  $(help_writer "-bop," "--baropencolor" "Sets the bar open color")
+  $(help_writer "-bco," "--barclosecolor" "Sets the bar close color")
+  $(help_writer "-pc," "--percentcolor" "Sets the bar percent color")
+
+≡$(clstring "Examples" "yellow")≡
+    longformat:
+        > bashprog --bar --theme BlocksHolo 75 30
+        > bashprog --spinner braille
+    shortformat:
+        > bashprog -b -t BlocksHolo 75 30
+        > bashprog -s braille
+
+EOF
+}
+
 # Debug function
 # ==================================================================
 # Function: bprog_debug
@@ -19,7 +97,7 @@
 
 bprog_debug() {
     if [[ $BPROG_DEBUG -eq 1 ]]; then
-        echo "$(color_text "[DEBUG]" "cyan") $*" >&2
+        echo "$(clstring "[DEBUG]" "cyan") $*" >&2
     fi
 }
 
@@ -57,7 +135,7 @@ bprog_set_debug() {
 
 bprog_check_dependencies() {
     if ! command -v jq &> /dev/null; then
-        echo "$(color_text "[WARNING]" "bright_yellow") jq is not installed. Some features may not work properly." >&2
+        echo "$(clstring "[WARNING]" "bright_yellow") jq is not installed. Some features may not work properly." >&2
         return 1
     fi
     return 0
@@ -84,13 +162,13 @@ bprog_load_module() {
     
     local module_path="${BPROG_HOME}/lib/${module_name}.sh"
 
-    bprog_debug "Loading module: $module_name from path: $module_path"
+    bprog_debug "Loading module $(bkvp $module_name $module_path )"
     
     if [[ -f "$module_path" ]]; then
         source "$module_path"
         return 0
     else
-        echo "$(color_text "[ERROR]" "red") Module '$module_name' not found at $module_path" >&2
+        echo "$(clstring "[ERROR]" "red") Module '$module_name' not found at $(clstring "$module_path" "yellow")" >&2
         return 1
     fi
 }
@@ -124,12 +202,12 @@ bprog_list_themes() {
     local theme_dir="${BPROG_HOME}/themes/${theme_type}"
     
     if [[ ! -d "$theme_dir" ]]; then
-        echo "$(color_text "[ERROR]" "red") Theme directory not found: $theme_dir" >&2
+        echo "$(clstring "[ERROR]" "red") Theme directory not found: $theme_dir" >&2
         return 1
     fi
     
     echo "╭──────────────────────────────────╮"
-    echo "├ Available $(color_text "$theme_type" "bright_cyan") themes:       ┤"
+    echo "├ Available $(clstring "$theme_type" "bright_cyan") themes:       ┤"
     echo "├──────────────────────────────────┤"
     for theme_file in "$theme_dir"/*.json; do
         if [[ -f "$theme_file" ]]; then
@@ -143,18 +221,18 @@ bprog_list_themes() {
             local theme_bar_pointer=""
             
             # All themes will have these properties
-            theme_name="$(color_text "$(jq -r '.theme // "No theme"' "$theme_file" 2>/dev/null)" "bright_cyan")"
+            theme_name="$(clstring "$(jq -r '.theme // "No theme"' "$theme_file" 2>/dev/null)" "bright_cyan")"
             theme_desc=$(jq -r '.description // "No description"' "$theme_file" 2>/dev/null)
             
             # TODO: Add Color to output
             case "$theme_type" in
                 "bars")
-                    # color elements with color_text
-                    theme_bar_open="$(color_text "$(jq -r '.open // "No opening"' "$theme_file" 2>/dev/null)" "bright_yellow")"
-                    theme_bar_close="$(color_text "$(jq -r '.close // "No closing"' "$theme_file" 2>/dev/null)" "bright_yellow")"
-                    theme_bar_complete="$(color_text "$(jq -r '.complete // "No complete"' "$theme_file" 2>/dev/null)" "bright_green")"
-                    theme_bar_incomplete="$(color_text "$(jq -r '.incomplete // "No incomplete"' "$theme_file" 2>/dev/null)" "bright_red")"
-                    theme_bar_pointer="$(color_text "$(jq -r '.pointer // "No pointer"' "$theme_file" 2>/dev/null)" "bright_blue")"
+                    # color elements with clstring
+                    theme_bar_open="$(clstring "$(jq -r '.open // "No opening"' "$theme_file" 2>/dev/null)" "bright_yellow")"
+                    theme_bar_close="$(clstring "$(jq -r '.close // "No closing"' "$theme_file" 2>/dev/null)" "bright_yellow")"
+                    theme_bar_complete="$(clstring "$(jq -r '.complete // "No complete"' "$theme_file" 2>/dev/null)" "bright_green")"
+                    theme_bar_incomplete="$(clstring "$(jq -r '.incomplete // "No incomplete"' "$theme_file" 2>/dev/null)" "bright_red")"
+                    theme_bar_pointer="$(clstring "$(jq -r '.pointer // "No pointer"' "$theme_file" 2>/dev/null)" "bright_blue")"
                     local cchar=$theme_bar_complete
                     local ichar=$theme_bar_incomplete
                     echo "  $theme_name - $theme_bar_open$cchar$cchar$cchar$theme_bar_pointer$ichar$ichar$ichar$ichar$ichar$theme_bar_close 34%"
@@ -196,7 +274,7 @@ bprog_get_theme_path() {
         echo "$theme_path"
         return 0
     else
-        echo "$(color_text "[ERROR]" "red"): Theme '$theme_name' not found at $theme_path" >&2
+        echo "$(clstring "[ERROR]" "red"): Theme '$theme_name' not found at $theme_path" >&2
         return 1
     fi
 }
@@ -281,7 +359,8 @@ bprog_init() {
     
     # Load the core modules
     bprog_load_module "clearlines"
-    bprog_load_module "colortext"
+    bprog_load_module "clstring"
+    bprog_load_module "bkvp"
     bprog_load_module "bprog-bar"
     bprog_load_module "bprog-spinner"
     bprog_load_module "bprog-cache"

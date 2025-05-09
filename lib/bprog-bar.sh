@@ -21,7 +21,7 @@ declare -g -A bprog_bar_theme
 bprog_load_bar_theme() {
     local theme_file="$1"
     
-    bprog_debug "Loading bar theme from $theme_file"
+    bprog_debug "$(clstring "[IO]" "bright_magenta") Loading bar theme from file: $theme_file"
 
      # Clear existing theme data
     unset bprog_bar_theme
@@ -29,14 +29,14 @@ bprog_load_bar_theme() {
 
     # Check if file exists
     if [[ ! -f "$theme_file" ]]; then
-        echo "Error: Theme file '$theme_file' not found." >&2
+        echo "$(clstring "[ERROR]" "red")> Theme file '$theme_file' not found." >&2
         return 1
     fi
     
     # Load the theme data
     bprog_bar_theme[theme]="$(jq -r '.theme' $theme_file)"
     if [[ $? -ne 0 ]]; then
-        echo "Error: Failed to parse theme file." >&2
+        echo "$(clstring "[ERROR]" "red")> Failed to parse theme file." >&2
         return 1
     fi
 
@@ -49,6 +49,7 @@ bprog_load_bar_theme() {
     bprog_bar_theme[description]="$(jq -r '.description // "No description"' $theme_file)"
     
     bprog_debug "Bar theme '${bprog_bar_theme["theme"]}' loaded successfully"
+    
     return 0
 }
 
@@ -74,7 +75,7 @@ bprog_bar() {
     
     # Check if theme is loaded
     if [[ -z "${bprog_bar_theme["theme"]}" ]]; then
-        echo "Error: No bar theme loaded. Use bprog_load_bar_theme first." >&2
+        echo "$(clstring "[ERROR]" "red")> No bar theme loaded. Use bprog_load_bar_theme first." >&2
         return 1
     fi
     
@@ -165,6 +166,4 @@ bprog_bar_init() {
     return 0
 }
 
-# Call init function
-# TODO: move to bprog entry .sh
 bprog_bar_init
