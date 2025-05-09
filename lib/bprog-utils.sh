@@ -1,9 +1,21 @@
 #!/bin/bash
 
-# Global settings
-BPROG_DEBUG=1
-
 # Debug function
+# ==================================================================
+# Function: bprog_debug
+# ==================================================================
+# Description:
+#   Debug function
+#
+# Arguments:
+#   message: The message to output
+#
+# Examples:
+#   bprog_debug "Debug message"
+#
+#   bprog_debug "Debug message with variable: $var"
+#
+# =================================================================
 bprog_debug() {
     if [[ $BPROG_DEBUG -eq 1 ]]; then
         echo "$(color_text "[DEBUG]" "cyan") $*" >&2
@@ -11,11 +23,37 @@ bprog_debug() {
 }
 
 # Enable/disable debug mode
+# ==================================================================
+# Function: bprog_set_debug
+# ==================================================================
+# Description:
+#   Enable/disable debug mode
+#
+# Arguments:
+#   debug_mode: The debug mode to set (0 or 1)
+#
+# Examples:
+#   bprog_set_debug 1
+#
+#   bprog_set_debug 0
+#
+# =================================================================
+
 bprog_set_debug() {
     BPROG_DEBUG=$1
 }
 
-# Check if jq is available
+# ==================================================================
+# Function: bprog_check_dependencies
+# ==================================================================
+# Description:
+#   Check if jq is available
+#
+# Examples:
+#   bprog_check_dependencies
+#
+# =================================================================
+
 bprog_check_dependencies() {
     if ! command -v jq &> /dev/null; then
         echo "Warning: jq is not installed. Some features may not work properly." >&2
@@ -25,7 +63,7 @@ bprog_check_dependencies() {
 }
 
 # ==================================================================
-#*Function: bprog_load_module
+# Function: bprog_load_module
 # ==================================================================
 # Description:
 #   Load a module from the lib directory.
@@ -56,8 +94,10 @@ bprog_load_module() {
     fi
 }
 
+export -f bprog_load_module
+
 # ==================================================================
-#*Function: bprog_list_themes
+# Function: bprog_list_themes
 # ==================================================================
 # Description:
 #   List all available themes for bars or spinners.
@@ -70,6 +110,7 @@ bprog_load_module() {
 #   bprog_list_themes spinners
 #
 # =================================================================
+
 bprog_list_themes() {
     local theme_type="$1"  # "bars" or "spinners"
     local theme_name="$2" # optional theme name
@@ -127,7 +168,7 @@ bprog_list_themes() {
 }
 
 # ==================================================================
-#*Function: bprog_get_theme_path
+# Function: bprog_get_theme_path
 # ==================================================================
 # Description:
 #   Get the path to a theme file based on its type and name.
@@ -158,7 +199,7 @@ bprog_get_theme_path() {
 }
 
 # ==================================================================
-#*Function: bprog_use_bar_theme
+# Function: bprog_use_bar_theme
 # ==================================================================
 # Description:
 #   Load a bar theme by name instead of path.
@@ -188,7 +229,7 @@ bprog_use_bar_theme() {
 
 # Load a spinner theme by name instead of path
 # ==================================================================
-#*Function: bprog_use_spinner_theme
+# Function: bprog_use_spinner_theme
 # ==================================================================
 # Description:
 #   Load a spinner theme by name instead of path.
@@ -216,9 +257,8 @@ bprog_use_spinner_theme() {
     fi
 }
 
-# Load all core modules
 # ==================================================================
-#*Function: bprog_init
+# Function: bprog_init
 # ==================================================================
 # Description:
 #   Load all core modules.
@@ -230,11 +270,13 @@ bprog_use_spinner_theme() {
 # =================================================================
 
 bprog_init() {
-    # Load the core modules
 
+    
     bprog_debug "Initializing bprog modules"
+    
     bprog_check_dependencies
-    # bprog_load_module "bprog-core"
+    
+    # Load the core modules
     bprog_load_module "bprog-bar"
     bprog_load_module "bprog-spinner"
     bprog_load_module "bprog-cache"
@@ -242,6 +284,4 @@ bprog_init() {
     return 0
 }
 
-# Automatically load the bprog modules
-# TODO: move to bprog entry .sh
 bprog_init
