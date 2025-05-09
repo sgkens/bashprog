@@ -1,9 +1,22 @@
 #!/bin/bash
 
-# Global settings
-BPROG_DEBUG=1
-
 # Debug function
+# ==================================================================
+# Function: bprog_debug
+# ==================================================================
+# Description:
+#   Debug function
+#
+# Arguments:
+#   message: The message to output
+#
+# Examples:
+#   bprog_debug "Debug message"
+#
+#   bprog_debug "Debug message with variable: $var"
+#
+# =================================================================
+
 bprog_debug() {
     if [[ $BPROG_DEBUG -eq 1 ]]; then
         echo "$(color_text "[DEBUG]" "cyan") $*" >&2
@@ -11,21 +24,47 @@ bprog_debug() {
 }
 
 # Enable/disable debug mode
+# ==================================================================
+# Function: bprog_set_debug
+# ==================================================================
+# Description:
+#   Enable/disable debug mode
+#
+# Arguments:
+#   debug_mode: The debug mode to set (0 or 1)
+#
+# Examples:
+#   bprog_set_debug 1
+#
+#   bprog_set_debug 0
+#
+# =================================================================
+
 bprog_set_debug() {
     BPROG_DEBUG=$1
 }
 
-# Check if jq is available
+# ==================================================================
+# Function: bprog_check_dependencies
+# ==================================================================
+# Description:
+#   Check if jq is available
+#
+# Examples:
+#   bprog_check_dependencies
+#
+# =================================================================
+
 bprog_check_dependencies() {
     if ! command -v jq &> /dev/null; then
-        echo "Warning: jq is not installed. Some features may not work properly." >&2
+        echo "$(color_text "[WARNING]" "bright_yellow") jq is not installed. Some features may not work properly." >&2
         return 1
     fi
     return 0
 }
 
 # ==================================================================
-#*Function: bprog_load_module
+# Function: bprog_load_module
 # ==================================================================
 # Description:
 #   Load a module from the lib directory.
@@ -51,13 +90,15 @@ bprog_load_module() {
         source "$module_path"
         return 0
     else
-        echo "Error: Module '$module_name' not found at $module_path" >&2
+        echo "$(color_text "[ERROR]" "red") Module '$module_name' not found at $module_path" >&2
         return 1
     fi
 }
 
+export -f bprog_load_module
+
 # ==================================================================
-#*Function: bprog_list_themes
+# Function: bprog_list_themes
 # ==================================================================
 # Description:
 #   List all available themes for bars or spinners.
@@ -70,6 +111,7 @@ bprog_load_module() {
 #   bprog_list_themes spinners
 #
 # =================================================================
+
 bprog_list_themes() {
     local theme_type="$1"  # "bars" or "spinners"
     local theme_name="$2" # optional theme name
@@ -82,12 +124,13 @@ bprog_list_themes() {
     local theme_dir="${BPROG_HOME}/themes/${theme_type}"
     
     if [[ ! -d "$theme_dir" ]]; then
-        echo "Error: Theme directory not found: $theme_dir" >&2
+        echo "$(color_text "[ERROR]" "red") Theme directory not found: $theme_dir" >&2
         return 1
     fi
     
-    echo "Available $theme_type themes:"
-
+    echo "╭──────────────────────────────────╮"
+    echo "├ Available $(color_text "$theme_type" "bright_cyan") themes:       ┤"
+    echo "├──────────────────────────────────┤"
     for theme_file in "$theme_dir"/*.json; do
         if [[ -f "$theme_file" ]]; then
             local theme_name=""
@@ -100,13 +143,13 @@ bprog_list_themes() {
             local theme_bar_pointer=""
             
             # All themes will have these properties
+            theme_name="$(color_text "$(jq -r '.theme // "No theme"' "$theme_file" 2>/dev/null)" "bright_cyan")"
             theme_desc=$(jq -r '.description // "No description"' "$theme_file" 2>/dev/null)
             
             # TODO: Add Color to output
             case "$theme_type" in
                 "bars")
                     # color elements with color_text
-                    theme_name="$(color_text "$(jq -r '.theme // "No theme"' "$theme_file" 2>/dev/null)" "bright_cyan")"
                     theme_bar_open="$(color_text "$(jq -r '.open // "No opening"' "$theme_file" 2>/dev/null)" "bright_yellow")"
                     theme_bar_close="$(color_text "$(jq -r '.close // "No closing"' "$theme_file" 2>/dev/null)" "bright_yellow")"
                     theme_bar_complete="$(color_text "$(jq -r '.complete // "No complete"' "$theme_file" 2>/dev/null)" "bright_green")"
@@ -114,11 +157,12 @@ bprog_list_themes() {
                     theme_bar_pointer="$(color_text "$(jq -r '.pointer // "No pointer"' "$theme_file" 2>/dev/null)" "bright_blue")"
                     local cchar=$theme_bar_complete
                     local ichar=$theme_bar_incomplete
-                    echo "  $theme_name - $theme_bar_open$cchar$cchar$cchar$theme_bar_pointer$ichar$ichar$ichar$ichar$ichar$theme_bar_close"
+                    echo "  $theme_name - $theme_bar_open$cchar$cchar$cchar$theme_bar_pointer$ichar$ichar$ichar$ichar$ichar$theme_bar_close 34%"
                     ;;
                 "spinners")
                     theme_spinner_frames=$(jq -r '.frames | join(",") // "No frames"' "$theme_file" 2>/dev/null)
-                    echo "  - $theme_name -|frames: [$theme_frames] Wait:($theme_waiting) Open: ($theme_opening) Close: ($theme_closing)|- : $theme_desc"
+                    theme_spinner_complete=$(jq -r '.complete // "No complete"' "$theme_file" 2>/dev/null)
+                    echo "  - $theme_name -|frames: [$theme_spinner_frames] Complete:($theme_spinner_complete)"
                     ;;
             esac
             #echo "  - $theme_name -|frames: [$theme_frames] Wait:($theme_waiting) Open: ($theme_opening) Close: ($theme_closing)|- : $theme_desc"
@@ -127,7 +171,7 @@ bprog_list_themes() {
 }
 
 # ==================================================================
-#*Function: bprog_get_theme_path
+# Function: bprog_get_theme_path
 # ==================================================================
 # Description:
 #   Get the path to a theme file based on its type and name.
@@ -152,13 +196,13 @@ bprog_get_theme_path() {
         echo "$theme_path"
         return 0
     else
-        echo "Error: Theme '$theme_name' not found at $theme_path" >&2
+        echo "$(color_text "[ERROR]" "red"): Theme '$theme_name' not found at $theme_path" >&2
         return 1
     fi
 }
 
 # ==================================================================
-#*Function: bprog_use_bar_theme
+# Function: bprog_use_bar_theme
 # ==================================================================
 # Description:
 #   Load a bar theme by name instead of path.
@@ -188,7 +232,7 @@ bprog_use_bar_theme() {
 
 # Load a spinner theme by name instead of path
 # ==================================================================
-#*Function: bprog_use_spinner_theme
+# Function: bprog_use_spinner_theme
 # ==================================================================
 # Description:
 #   Load a spinner theme by name instead of path.
@@ -216,9 +260,8 @@ bprog_use_spinner_theme() {
     fi
 }
 
-# Load all core modules
 # ==================================================================
-#*Function: bprog_init
+# Function: bprog_init
 # ==================================================================
 # Description:
 #   Load all core modules.
@@ -230,11 +273,15 @@ bprog_use_spinner_theme() {
 # =================================================================
 
 bprog_init() {
-    # Load the core modules
 
+    
     bprog_debug "Initializing bprog modules"
+    
     bprog_check_dependencies
-    # bprog_load_module "bprog-core"
+    
+    # Load the core modules
+    bprog_load_module "clearlines"
+    bprog_load_module "colortext"
     bprog_load_module "bprog-bar"
     bprog_load_module "bprog-spinner"
     bprog_load_module "bprog-cache"
@@ -242,6 +289,4 @@ bprog_init() {
     return 0
 }
 
-# Automatically load the bprog modules
-# TODO: move to bprog entry .sh
 bprog_init
