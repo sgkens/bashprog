@@ -1,8 +1,8 @@
 #!/bin/bash
-# Author: Garvey Snow
-# github: https://github.com/sgkens/colortext
+
+# github: https://github.com/sgkens/clstring
 # ==================================================================
-#*Function: color_text
+# Function: color_text
 # ==================================================================
 # Description:
 #   Color text in the terminal, supports 8-bit colors.
@@ -18,7 +18,7 @@
 #   color_text "This has green background" "" "green"
 # =================================================================
 
-color_text() {
+clstring() {
     local string="$1"
     local color="$2"
     local bgcolor="$3"
@@ -103,12 +103,12 @@ color_text() {
     echo -e "${format_code}${string}\e[0m"
 }
 
-export -f color_text
+export -f clstring
 
 # Test the function if this script is run directly
 # if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 #     echo "Testing color_text function:"
-#     echo "$(color_text "This is red text on yellow background" "red" "yellow")"
-#     echo "$(color_text "This is blue text" "blue" "")"
-#     echo "$(color_text "This has green background" "" "green")"
+#     echo "$(clstring "This is red text on yellow background" "red" "yellow")"
+#     echo "$(clstring "This is blue text" "blue" "")"
+#     echo "$(clstring "This has green background" "" "green")"
 # fi

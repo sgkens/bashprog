@@ -31,14 +31,14 @@ bprog_load_spinner_theme() {
     
     # Check if file exists
     if [[ ! -f "$theme_file" ]]; then
-        echo "Error: Theme file '$theme_file' not found." >&2
+        echo "$(clstring "[ERROR]" "red")> Theme file '$theme_file' not found." >&2
         return 1
     fi
     
     # Load the theme basic data
     bprog_spinner_theme["theme"]=$(jq -r '.theme' "$theme_file" 2>/dev/null)
     if [[ $? -ne 0 ]]; then
-        echo "Error: Failed to parse theme file." >&2
+        echo "$(clstring "[ERROR]" "red")> Failed to parse theme file." >&2
         return 1
     fi
     
@@ -61,7 +61,7 @@ bprog_load_spinner_theme() {
     
     # Validate that we actually loaded some frames
     if [[ ${#bprog_spinner_frames[@]} -eq 0 ]]; then
-        echo "Error: Failed to load any spinner frames from theme file." >&2
+        echo "$(clstring "[ERROR]" "red")> Failed to load any spinner frames from theme file." >&2
         return 1
     fi
     
@@ -87,13 +87,13 @@ bprog_spinner() {
 
     # Check if theme is loaded
     if [[ -z "${bprog_spinner_theme[theme]}" ]]; then
-        echo "Error: No spinner theme loaded. Use bprog_load_spinner_theme first." >&2
+        echo "$(clstring "[ERROR]" "red")> No spinner theme loaded. Use bprog_load_spinner_theme first." >&2
         return 1
     fi
     
     # If there are no frames defined, return an error
     if [[ ${#bprog_spinner_frames[@]} -eq 0 ]]; then
-        echo "Error: No spinner frames loaded." >&2
+        echo "$(clstring "[ERROR]" "red")> No spinner frames loaded." >&2
         return 1
     fi
     
