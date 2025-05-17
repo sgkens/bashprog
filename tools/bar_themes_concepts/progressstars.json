@@ -1,0 +1,10 @@
+{
+    "theme": "progressstars",
+    "description": "Star-based progress indicators",
+    "open": "[",
+    "close": "]",
+    "complete": "★",
+    "incomplete": "☆",
+    "pointer": "★",
+    "example": "[★★★★★☆☆☆☆☆] 50% Complete"
+}

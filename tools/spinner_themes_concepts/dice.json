@@ -1,0 +1,13 @@
+{
+    "theme": "dice",
+    "description": "Rolling dice",
+    "frames": [
+        "⚀",
+        "⚁",
+        "⚂",
+        "⚃",
+        "⚄",
+        "⚅"
+    ],
+    "complete": "✓"
+}

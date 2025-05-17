@@ -1,0 +1,10 @@
+{
+    "theme": "chevrons",
+    "description": "Angled chevrons with dot spacers",
+    "open": "",
+    "close": "",
+    "complete": "»",
+    "incomplete": "·",
+    "pointer": "»",
+    "example": "»»»»»·····  50% Complete"
+}

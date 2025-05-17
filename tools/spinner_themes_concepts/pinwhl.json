@@ -1,0 +1,15 @@
+{
+    "theme": "pinwhl",
+    "description": "Spinning pinwheel",
+    "frames": [
+        "┃",
+        "┗",
+        "━",
+        "┏",
+        "┃",
+        "┓",
+        "━",
+        "┛"
+    ],
+    "complete": "✓"
+}

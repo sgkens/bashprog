@@ -1,0 +1,15 @@
+{
+    "theme": "arrows",
+    "description": "Rotating arrow indicators",
+    "frames": [
+        "←",
+        "↖",
+        "↑",
+        "↗",
+        "→",
+        "↘",
+        "↓",
+        "↙"
+    ],
+    "complete": "✓"
+}

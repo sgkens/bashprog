@@ -1,0 +1,102 @@
+<svg viewBox="0 0 400 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background rectangle -->
+  <rect width="100%" height="100%" fill="white"/>
+  
+  <!-- Progress bar container - with fixed positions -->
+  <text font-family="monospace" font-size="20" font-weight="bold">
+    <!-- Opening bracket - fixed position -->
+    <tspan x="20" y="40">${opening_char}</tspan>
+    
+    <!-- Progress bar area - fixed width with 30 character spaces -->
+    <tspan x="35" y="40">
+      <!-- Progress fill characters will be placed here, with fixed width -->
+      <tspan id="${theme_name}_progressFill" fill="${fill_color}"></tspan>
+      <!-- Empty space characters will be placed here -->
+      <tspan id="${theme_name}_progressEmpty">                              </tspan>
+    </tspan>
+    
+    <!-- Closing bracket - fixed position -->
+    <tspan x="335" y="40">${closing_char}</tspan>
+    
+    <!-- Percentage display - fixed position -->
+    <tspan x="355" y="40" id="${theme_name}_percentDisplay" fill="${percentage_color}">0%</tspan>
+  </text>
+  
+  <!-- Restart button -->
+  <g id="${theme_name}_restartButton" opacity="1" cursor="pointer">
+    <rect x="20" y="50" width="80" height="25" rx="5" ry="5" fill="#4CAF50" />
+    <text x="60" y="67" font-family="Arial" font-size="14" fill="white" text-anchor="middle">Animate</text>
+  </g>
+  
+  <script type="text/ecmascript"><![CDATA[
+    // Get references to the elements we'll update
+    const ${theme_name}_progressFill = document.getElementById('${theme_name}_progressFill');
+    const ${theme_name}_progressEmpty = document.getElementById('${theme_name}_progressEmpty');
+    const ${theme_name}_percentDisplay = document.getElementById('${theme_name}_percentDisplay');
+    const ${theme_name}_restartButton = document.getElementById('${theme_name}_restartButton');
+    
+    // Total number of characters in the progress bar
+    const ${theme_name}_totalChars = 27;
+    
+    // Animation settings
+    const ${theme_name}_animationDuration = 3000; // 3 seconds
+    const ${theme_name}_updateInterval = 50; // Update every 50ms
+    const ${theme_name}_steps = ${theme_name}_animationDuration / ${theme_name}_updateInterval;
+    
+    let ${theme_name}_currentStep = 0;
+    let ${theme_name}_animationInterval;
+    
+    // Function to update the progress bar
+    function ${theme_name}_updateProgressBar() {
+      ${theme_name}_currentStep++;
+      
+      // Calculate current percentage
+      const ${theme_name}_percentage = Math.min(Math.floor((${theme_name}_currentStep / ${theme_name}_steps) * 100), 100);
+      
+      // Calculate how many characters should be filled
+      const ${theme_name}_filledChars = Math.round((${theme_name}_percentage / 100) * ${theme_name}_totalChars);
+      const ${theme_name}_emptyChars = ${theme_name}_totalChars - ${theme_name}_filledChars;
+      
+      //let progressPointer = '${pointer_char}'
+      // Update the elements - using a fixed-width approach to prevent movement
+      ${theme_name}_progressFill.textContent = '#'.repeat(${theme_name}_filledChars);
+      // pointer
+      if(${theme_name}_percentage < 100) {
+        ${theme_name}_progressFill.textContent += '${pointer_char}'
+      }
+      if (${theme_name}_percentage > 0) {
+        ${theme_name}_progressFill.textContent.slice(0, ${theme_name}_filledChars - 1) + ''
+      }
+      ${theme_name}_progressEmpty.textContent = ' '.repeat(${theme_name}_emptyChars);
+      ${theme_name}_percentDisplay.textContent = ${theme_name}_percentage + '%';
+      
+      // If animation is complete, show restart button
+      if (${theme_name}_percentage >= 100) {
+        clearInterval(${theme_name}_animationInterval);
+        ${theme_name}_restartButton.setAttribute('opacity', '1');
+      }
+    }
+    
+    // Function to start the animation
+    function ${theme_name}_startAnimation() {
+      // Reset
+      ${theme_name}_currentStep = 0;
+      ${theme_name}_restartButton.setAttribute('opacity', '0');
+      
+      // Clear any existing interval
+      if (${theme_name}_animationInterval) {
+        clearInterval(${theme_name}_animationInterval);
+      }
+      
+      // Start new animation
+      updateProgressBar(); // Initial update
+      ${theme_name}_animationInterval = setInterval(${theme_name}_updateProgressBar, ${theme_name}_updateInterval);
+    }
+    
+    // Add click event to restart button
+    ${theme_name}_restartButton.addEventListener('click', ${theme_name}_startAnimation);
+    
+    // Start the animation initially
+    ${theme_name}_startAnimation();
+  ]]></script>
+</svg>

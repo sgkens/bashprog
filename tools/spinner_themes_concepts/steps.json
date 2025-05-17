@@ -1,0 +1,6 @@
+{
+    "theme": "steps",
+    "description": "A spinner that uses steps to represent the loading state.",
+    "frames": [ "⎺", "⎻", "⎼", "⎽" ],
+    "complete": "✔"
+}

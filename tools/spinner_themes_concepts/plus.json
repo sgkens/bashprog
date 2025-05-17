@@ -1,0 +1,6 @@
+{
+    "theme": "plus",
+    "description": "A spinner that uses plus signs to represent the loading state.",
+    "frames": [ "|", "-", "_", "." ],
+    "complete": "Y"
+}

@@ -1,0 +1,10 @@
+{
+    "theme": "circuitprogress",
+    "description": "Circuit board style progress indicators",
+    "open": "[",
+    "close": "]",
+    "complete": "╬",
+    "incomplete": "╌",
+    "pointer": "╬",
+    "example": "[╬╬╬╬╬╌╌╌╌╌] 50% Complete"
+}

@@ -1,0 +1,10 @@
+{
+    "theme": "terminal",
+    "description": "Command line style progress",
+    "open": "$ ",
+    "close": " $",
+    "complete": "█ ",
+    "incomplete": "_ ",
+    "pointer": "▌",
+    "example": "$ █ █ █ █ █ _ _ _ _ _ $ 50% Complete"
+}

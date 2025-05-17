@@ -1,0 +1,10 @@
+{
+    "theme": "lineboxes",
+    "description": "Vertical line indicators of varying thickness",
+    "open": "[",
+    "close": "]",
+    "complete": "┃",
+    "incomplete": "│",
+    "pointer": "┃",
+    "example": "[┃┃┃┃┃│││││] 50% Complete"
+}

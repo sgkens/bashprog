@@ -1,0 +1,15 @@
+{
+    "theme": "flame",
+    "description": "A dancing flame animation",
+    "frames": [
+        "  🔥   ",
+        " 🔥    ",
+        "🔥     ",
+        " 🔥    ",
+        "  🔥   ",
+        "   🔥  ",
+        "    🔥 ",
+        "   🔥  "
+    ],
+    "complete": "🔥"
+}

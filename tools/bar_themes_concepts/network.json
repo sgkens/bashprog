@@ -1,0 +1,10 @@
+{
+    "theme": "network",
+    "description": "Connected nodes with links",
+    "open": "",
+    "close": "",
+    "complete": "◉━",
+    "incomplete": "◯",
+    "pointer": "◉",
+    "example": "◉━━━━━━━━━◯◯◯◯◯◯◯◯◯◯ 50% Complete"
+}

@@ -1,0 +1,6 @@
+{
+    "theme": "tetris",
+    "description": "A spinner that uses Tetris blocks to represent the loading state.",
+    "frames": [ "⣀", "⣄", "⣤", "⣦", "⣶", "⣷", "⣿" ],
+    "complete": "⣿"
+}

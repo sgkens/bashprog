@@ -1,0 +1,10 @@
+{
+    "theme": "underscores",
+    "description": "Underscore progress indicators",
+    "open": "[",
+    "close": "]",
+    "complete": "_",
+    "incomplete": " ",
+    "pointer": "_",
+    "example": "[_____     ] 50% Complete"
+}

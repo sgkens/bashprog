@@ -1,0 +1,10 @@
+{
+    "theme": "verticalprogress",
+    "description": "Top and bottom block indicators",
+    "open": "[",
+    "close": "]",
+    "complete": "▀",
+    "incomplete": "▄",
+    "pointer": "█",
+    "example": "[▀▀▀▀▀▄▄▄▄▄] 50% Complete"
+}

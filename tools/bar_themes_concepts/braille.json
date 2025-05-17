@@ -1,0 +1,10 @@
+{
+    "theme": "braille",
+    "description": "Braille pattern progress bar",
+    "open": "",
+    "close": "",
+    "complete": "⣿",
+    "incomplete": "⣀",
+    "pointer": "⣿",
+    "example": "⣿⣿⣿⣿⣿⣀⣀⣀⣀⣀ 50% Complete"
+}

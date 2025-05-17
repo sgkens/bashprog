@@ -1,0 +1,10 @@
+{
+    "theme": "horizontalprogress",
+    "description": "Left and right block indicators",
+    "open": "▍",
+    "close": "▍",
+    "complete": "▐",
+    "incomplete": "▏",
+    "pointer": "█",
+    "example": "▍▐▐▐▐█ ▏▏▏▏▏▏▍ 50%"
+}
