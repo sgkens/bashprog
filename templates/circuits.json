@@ -1,0 +1,10 @@
+{
+    "theme": "circuits",
+    "description": "Circuit board inspired theme",
+    "open": "",
+    "close": "",
+    "complete": "┌───────┐",
+    "incomplete": "└───────┘",
+    "pointer": "┬",
+    "example": "┌───────┐          └───────┘ 50% Complete"
+}
