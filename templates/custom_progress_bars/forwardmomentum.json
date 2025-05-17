@@ -1,0 +1,10 @@
+{
+    "theme": "Forward Momentum",
+    "description": "Forward Momentum progress bar",
+    "open": "⊂",
+    "close": "⊃",
+    "complete": "≡",
+    "incomplete": " ",
+    "pointer": "≥",
+    "example": "⊂≡≡≡≡≡≡≡≡≡≡≡≡≥             ⊃ 50%"
+}

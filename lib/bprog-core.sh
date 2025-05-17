@@ -41,6 +41,8 @@ help_writer() {
     
     if [[ ${#shortform} -gt 1 ]]; then
         remaining_descrption_spaces=$((${#shortform}-1+$remaining_descrption_spaces))
+    else
+        remaining_descrption_spaces=$((${#shortform}+$remaining_descrption_spaces))
     fi
 
     echo -n "$(printf "%${remaining_descrption_spaces}s" "")"
@@ -52,6 +54,10 @@ show_help() {
     cat << EOF
 
 Usage: bashprog [options] [theme] [percent] [width]
+
+Example: bashprog --bar --theme BlocksHolo 75 30
+Example: bashprog --spinner braille
+Example: echo "$\(bashprog --bar --theme BlocksHolo 75 30)"
 
 ≡$(clstring "Options" "yellow")≡
   $(help_writer "-h," "--help" "Display this help text")
@@ -162,7 +168,7 @@ bprog_load_module() {
     
     local module_path="${BPROG_HOME}/lib/${module_name}.sh"
 
-    bprog_debug "Loading module $(bkvp $module_name $module_path )"
+    bprog_debug "Loading module $(bkvp $module_name $module_path)"
     
     if [[ -f "$module_path" ]]; then
         source "$module_path"
@@ -351,20 +357,17 @@ bprog_use_spinner_theme() {
 # =================================================================
 
 bprog_init() {
-
-    
-    bprog_debug "Initializing bprog modules"
     
     bprog_check_dependencies
     
     # Load the core modules
     bprog_load_module "clearlines"
-    bprog_load_module "clstring"
-    bprog_load_module "bkvp"
     bprog_load_module "bprog-bar"
     bprog_load_module "bprog-spinner"
-    bprog_load_module "bprog-cache"
+    bprog_load_module "bprog-serializer-cachce" #*Completed
     
+    bprog_debug "Initializing bashprog modules"
+
     return 0
 }
 
