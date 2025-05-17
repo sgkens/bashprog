@@ -1,6 +1,0 @@
-  {
-    "theme": "dots",
-    "description": "Simple moving dots",
-    "frames": [".  ", " ..", "...", ".. ", ".  "],
-    "complete": "-✔-"
-  }

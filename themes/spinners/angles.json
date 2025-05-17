@@ -1,0 +1,14 @@
+{
+    "$schema": "https://gitlab.com/sgkens/bashprog/-/raw/main/themes/schema/spinners.json",
+    "theme": "angles",
+    "types": ["ASCII-ADVANCED"],
+    "description": "Angular progress indicators",
+    "frames": [
+        "◥",
+        "◢",
+        "◤",
+        "◣",
+        "◤"
+    ],
+    "complete": "✓"
+}

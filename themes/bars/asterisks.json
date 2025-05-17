@@ -1,11 +1,11 @@
 {
     "$schema": "https://raw.githubusercontent.com/sgkens/bashprog/main/themes/schema-bars.json",
     "types": ["ASCII"],
-    "theme": "arrowflow",
-    "description": "Direction-based progress indicators",
+    "theme": "asterisks",
+    "description": "Star-shaped progress indicators",
     "open": "[",
     "close": "]",
-    "complete": "→",
-    "incomplete": "<",
-    "pointer": "→"
+    "complete": "*",
+    "incomplete": " ",
+    "pointer": "*"
 }
