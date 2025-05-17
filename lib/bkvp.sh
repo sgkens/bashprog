@@ -27,7 +27,7 @@ bkvp() {
     fi
     
     # Output key-value pair in JSON format
-    echo "$(color_text { magenta) $(color_text ${key} cyan) : ${value} $(color_text } magenta)"
+    echo "$(clstring { magenta) $(clstring ${key} cyan) : ${value} $(clstring } magenta)"
 }
 
 export -f bkvp
