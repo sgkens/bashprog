@@ -1,0 +1,58 @@
+title: BashProg
+description: Bash Progress Bar Generator
+theme: just-the-docs
+color_scheme: dark
+# logo: "/assets/images/bashprog.png"
+# favicon_ico: "favicon.ico"
+
+search_enabled: true
+heading_anchors: true
+last_edit_timestamp: true 
+last_edit_time_format: "%b %e %Y at %I:%M %p"
+gh_edit_link: true # show or hide edit this page link
+gh_edit_link_text: "Edit this page on gitlab."
+gh_edit_repository: "https://gitlab.com/sgken/bashprog" # the github URL for your repo
+gh_edit_branch: "main" # the branch that your docs is served from
+# gh_edit_source: docs # the source that your files originate from
+gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
+
+footer_content: "Copyright &copy; 2025 Garvey K. Snow. Distributed by an <a href=\"https://github.com/sgkens/bashprog/tree/main/LICENSE.txt\">MIT license.</a>"
+
+# addtions call outs 
+#   see: https://just-the-docs.github.io/just-the-docs/docs/configuration/#addtions-callouts
+callouts:
+  info:
+    title: Info
+    color: oceanblue # mapped to $blue-000 and $blue-400 for highlight ./_sass/addtions/colors.scss
+  required:
+    title: Required
+    color: red # mapped to $tigerorange-000 and $tigerorange-400 for highlight ./_sass/addtions/colors.scss
+  dependancies:
+    title: Dependencies
+    color: lavender # mapped to $-000 and $orange-400 for highlight ./_sass/addtions/colors.scss
+  note:
+    title: Note
+    color: tealblue # mapped to $green-000 and $green-400 for highlight ./_sass/addtions/colors.scss
+  bar-mode:
+    title: Mode Bar
+    color: honey # mapped to $purple-000 and $purple-400 for highlight ./_sass/addtions/colors.scss
+  spinner-mode:
+    title: Mode Spinner
+    color: tealblue # mapped to $purple-000 and $purple-400 for highlight ./_sass/addtions/colors.scss
+  demo-mode:
+    title: Mode Demo
+    color: dusk # mapped to $purple-000 and $purple-400 for highlight ./_sass/addtions/colors.scss
+  debug-mode:
+    title: Debug
+    color: leafgreen # mapped to $red-000 and $red-400 for highlight ./_sass/addtions/addtions/.scss
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+url: https://bashprog.github.io
+
+aux_links:
+  "<box-icon type='logo' name='github' color='white' size='sm'></box-icon>&nbsp Github": https://github.com/sgkens/bashprog
+  "<box-icon type='logo' name='gitlab' color='orange' size='sm'></box-icon>&nbsp Gitlab": https://gitlab.com/sgken/bashprog
+  "<img src='https://img.shields.io/badge/mit-license-cyan?style=for-the-badge'/>": https://github.com/sgkens/bashprog/blob/main/LICENSE.txt
+
