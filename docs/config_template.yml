@@ -1,0 +1,37 @@
+repository: pages-themes/just-the-docs
+#author: # [name, email, web]
+remote_theme: pages-themes/slate@v0.2.0
+title: BashProg 
+description: Conventional Commit Message Generator
+show_downloads: true  # ["true" or "false" (unquoted) to indicate whether to provide a download URL]
+url: https://just-the-docs.github.io
+aux_links:
+  Template Repository: https://github.com/just-the-docs
+# custom:
+#   logo:         'https://raw.githubusercontent.com/sgkens/resources/main/modules/CommitFusion/dist/v2/logo-black-v2.svg' 
+#   dateupdated:  'Tuesday, 28 November 2023 8:26:40 PM' 
+#   license:      'https://img.shields.io/badge/MIT-License-blue?style=flat&logo=unlicense&color=#36013f' 
+#   version:      'https://img.shields.io/powershellgallery/v/commitfusion?include_prereleases&logo=powershell&label=Version&logoColor=white'
+#   choco:        'https://img.shields.io/chocolatey/dt/commitfusion?style=flat&logo=Chocolatey&labelColor=darkmagenta&color=gray'
+#   psgallary:    'https://img.shields.io/powershellgallery/dt/commitfusion?style=flat&logo=powershell&labelColor=blue&color=gray'
+#   codefactor:   'https://www.codefactor.io/repository/github/sgkens/commitfusion/badge'
+#   prod:         '/commitfusion' # Dev / github pages /reponame
+#   # dev:         '/'
+  
+#google_analytics: [Your Google Analytics tracking ID]
+plugins:
+  - jekyll-remote-theme # add this line to the plugins list if you already have one
+  - jekyll-avatar
+  - jekyll-sitemap
+  - jekyll-optional-front-matter
+  - jekyll-gist
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+defaults:
+  -
+    scope:
+      path:            "assets/**/*.pdf"
+    values:
+      sitemap:         false
+
