@@ -29,9 +29,9 @@ bar_svg_example_md_generator() {
 
     # bash multi-line string
 local svg_theme=$(cat <<EOF
-<svg viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 410 82" xmlns="http://www.w3.org/2000/svg">
   <!-- Background rectangle -->
-  <rect width="100%" height="100%" fill="#28272c"/>
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
   
   <!-- Progress bar container - with fixed positions -->
   <text font-family="monospace" font-size="20" font-weight="bold">
@@ -54,12 +54,12 @@ local svg_theme=$(cat <<EOF
   </text>
 
   <!-- pointer hidden outside element as it calulated after the svg is loaded -->
-  <tspan opacity="0" id="_hidden_${theme_name}_progressPointer" fill="${pointer_color}">${pointer_char}</tspan>
-  <tspan opacity="0" id="_hidden_${theme_name}_progressOpen" fill="${opening_color}">${opening_char}</tspan>
-  <tspan opacity="0" id="_hidden_${theme_name}_progressClose" fill="${closing_color}">${closing_char}</tspan>
-  <tspan opacity="0" id="_hidden_${theme_name}_progressFill" fill="${fill_color}">${fill_char}</tspan>
-  <tspan opacity="0" id="_hidden_${theme_name}_progressEmpty" fill="${empty_color}">${empty_char}</tspan>
-  <tspan opacity="0" id="_hidden_${theme_name}_percentColor" fill="${percentage_color}"></tspan>
+  <tspan opacity="0" id="_hidden_${theme_name}_progressPointer">${pointer_char}</tspan>
+  <tspan opacity="0" id="_hidden_${theme_name}_progressOpen">${opening_char}</tspan>
+  <tspan opacity="0" id="_hidden_${theme_name}_progressClose">${closing_char}</tspan>
+  <tspan opacity="0" id="_hidden_${theme_name}_progressFill">${fill_char}</tspan>
+  <tspan opacity="0" id="_hidden_${theme_name}_progressEmpty">${empty_char}</tspan>
+  <tspan opacity="0" id="_hidden_${theme_name}_percentColor">${percentage_color}</tspan>
 
   <!-- Restart button -->
   <g id="${theme_name}_restartButton" opacity="1" cursor="pointer">
@@ -141,14 +141,23 @@ EOF
         # Json theme file contents
         theme_json_contents=$(cat "$theme" | jq -r)
 
+
         # color list
-        colors=("white" "red" "green" "blue" "yellow" "magenta" "cyan")
-        colors_index=$(( RANDOM % ${#colors[@]} ))
-        random_color="${colors[$colors_index]}"
-        # set default colors for open and close
-        open_color="white"
-        close_color="white"
-        percentage_color="white"
+        colors=("white" "blue" "green" "yellow" "magenta" "cyan")
+
+        # random colors for elements
+        random_open_close_color_index=$(( RANDOM % ${#colors[@]} ))
+        random_percent_color_index=$(( RANDOM % ${#colors[@]} ))
+        random_fill_color_index=$(( RANDOM % ${#colors[@]} ))
+        random_empty_color_index=$(( RANDOM % ${#colors[@]} ))
+        random_pointer_color_index=$(( RANDOM % ${#colors[@]} ))
+
+        open_color="${colors[$random_open_close_color_index]}"
+        close_color="${colors[$random_open_close_color_index]}"
+        percentage_color="${colors[$random_percent_color_index]}"
+        fill_color="${colors[$random_fill_color_index]}"
+        empty_color="${colors[$random_empty_color_index]}"
+        pointer_color="${colors[$random_pointer_color_index]}"
 
         # generate the SVG file
         echo "Generating SVG: $(clstring ${theme_svg_file} cyan) for $(bkvp ${theme_name}, "./themes/bars/${theme_name}.json")"
@@ -160,11 +169,11 @@ EOF
         # without impoying a split switch statement
         large_param_array[0]="$theme_name"
         large_param_array[1]="$empty_char"
-        large_param_array[2]="$random_color"
+        large_param_array[2]="$empty_color"
         large_param_array[3]="$fill_char"
-        large_param_array[4]="$random_color"
+        large_param_array[4]="$fill_color"
         large_param_array[5]="$pointer_char"
-        large_param_array[6]="$random_color"
+        large_param_array[6]="$pointer_color"
         large_param_array[7]="$open_char"
         large_param_array[8]="$open_color"
         large_param_array[9]="$close_char"
@@ -196,8 +205,8 @@ parent: Bars
 
 #  {{ page.title | capitalize }}
 
-${description}
 
+<p class="fs-6 fw-300 text-oceanblue-200 alt-body-text">${description}</p>
 
 **--demo**
 
@@ -248,9 +257,6 @@ bashprog [options] [theme] [width] [percentage] [message]
 </pre>
 
 **⚡ Examples**
-
-\`\`\`bash
-\`\`\`
 
 Display the ${theme_name} progress bar theme with a width of \`50\` and a percentage of \`30\`.
 \`\`\`bash
