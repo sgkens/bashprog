@@ -1,0 +1,9 @@
+{
+    "theme": "cigaret",
+    "description": "A cigarette-like progress indicator",
+    "open": "()",
+    "close": ")",
+    "complete": "_",
+    "incomplete": "_",
+    "pointer": ")"
+}

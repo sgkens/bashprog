@@ -1,0 +1,6 @@
+{
+    "theme": "diamondcirlce",
+    "description": "Diamond circle indicators",
+    "frames": [ "◠", "◠", "◠", "◠", "◠", "◠", "♦", "◡", "◠", "◠", "◠", "◠", "◠", "◠", "♦", "◡", "◡", "◡", "◡", "◡" ],
+    "complete": "/"
+}

@@ -1,0 +1,6 @@
+  {
+    "theme": "bitshollow",
+    "description": "Braille pattern animation",
+    "frames": ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
+    "complete": "☑"
+  }

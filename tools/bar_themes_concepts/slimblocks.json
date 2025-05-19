@@ -1,0 +1,10 @@
+{
+    "theme": "slimblocks",
+    "description": "Graduated width block indicators",
+    "open": "[",
+    "close": "]",
+    "complete": "█",
+    "incomplete": " ",
+    "pointer": "▊",
+    "example": "[▏▎▍▌▋▊▉█   ] 50% Complete"
+}

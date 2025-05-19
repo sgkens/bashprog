@@ -1,0 +1,13 @@
+{
+    "theme": "rain",
+    "description": "Falling rain animation",
+    "frames": [
+        "︵",
+        "︶",
+        "︷",
+        "︸",
+        "︹",
+        "︺"
+    ],
+    "complete": "☂️"
+}

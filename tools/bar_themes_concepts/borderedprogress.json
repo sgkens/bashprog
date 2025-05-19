@@ -1,0 +1,10 @@
+{
+    "theme": "borderedprogress",
+    "description": "Heavy bordered progress indicators",
+    "open": "▏",
+    "close": "▏",
+    "complete": "╠",
+    "incomplete": "═",
+    "pointer": "╠",
+    "example": "▏╠╠╠╠╠═════▏ 50% Complete"
+}

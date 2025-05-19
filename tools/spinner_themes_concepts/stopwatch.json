@@ -1,0 +1,19 @@
+{
+    "theme": "stopwatch",
+    "description": "Rotating stopwatch clock hands",
+    "frames": [
+        "🕛",
+        "🕐",
+        "🕑",
+        "🕒",
+        "🕓",
+        "🕔",
+        "🕕",
+        "🕖",
+        "🕗",
+        "🕘",
+        "🕙",
+        "🕚"
+    ],
+    "complete": "⏰"
+}

@@ -1,0 +1,6 @@
+{
+    "theme": "bits",
+    "description": "A spinner that uses bits to represent the loading state.",
+    "frames": ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"],
+    "complete": "⣿"
+}

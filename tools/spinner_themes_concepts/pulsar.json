@@ -1,0 +1,13 @@
+{
+    "theme": "pulsar",
+    "description": "A pulsing star",
+    "frames": [
+        "✧",
+        "✦",
+        "✶",
+        "*",
+        "✶",
+        "✦"
+    ],
+    "complete": "★"
+}

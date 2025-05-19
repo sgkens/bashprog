@@ -1,0 +1,10 @@
+{
+    "theme": "boxedprogress",
+    "description": "Solid blocks with light shading",
+    "open": "[",
+    "close": "]",
+    "complete": "█",
+    "incomplete": "░",
+    "pointer": "▓",
+    "example": "[█████░░░░░] 50% Complete"
+}

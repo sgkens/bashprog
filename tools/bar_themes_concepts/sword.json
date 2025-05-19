@@ -1,0 +1,9 @@
+{
+    "theme": "sword",
+    "description": "Sword progress indicator",
+    "open": "<",
+    "close": ">",
+    "complete": "%",
+    "incomplete": "=",
+    "pointer": "|"
+}
