@@ -8,23 +8,23 @@ has_children: false
 nav_order: 1
 ---
 
-<box-icon name='graduation' type='solid' color='#1db95b' size='lg'></box-icon>
-
-# Rundown
+# Features
 
 <p class="fs-6 fw-300 text-dusk-400 alt-body-text">What can you do with bashprog?</p>
 
 Provides a simple way to display progress [**bars**][link-bars] and [**spinners**][link-spinners]. It supports multiple [**themes**][link-themes] and can be used in conjunction with other bash modules to create more complex progress bars and spinners.
 
-## Things it can do
+## Feature list
 
-- [**bars**][link-bars] and [**spinners**][link-spinners]. 
-- Supports multiple spinners and bars themes running in parallel.
+- Multiple [**bars**][link-bars] and [**spinners**][link-spinners].  themes running in parallel.
 - Memory caching, Theme files are cached in memory on theme load to improve performance, and minimize the number of times the theme file is read from disk.
-- Supports [**24-bit**][color-link] color ranges, standard terminals support 24 bit color.
-- Supports `256-bit` color ranges with optional flag `--c256`, most modern terminals support 256 but not all.
-- Supports multiple themes.
-- Supports custom themes via JSON files.
+- Rewrite console lines using the `--rewrite` switch
+- Color individial elements using the `--bc|barcolor`, `--bbg|barbgcolor`, `-pc|pointercolor`, `-pbg|pointerbgcolor`, `--boc|baropencolor`, `--bcc|barclosecolor`, `--pc|percentcolor` switches.
+- Multiple bars and spinners running in parallel
+- [**24-bit**][color-link] color ranges, standard terminals support 24 bit color.
+- `256-bit` color ranges with optional flag `--c256`, most modern terminals support 256 but not all.
+- Multiple themes.
+- Custom themes via JSON files.
 
 {: .dependancies }
 [`jq`][jq] is required to use the `bashprog` command. Bashprog will install `jq` if not installed see `lib/bprog-core.sh` <- `CheckDependencies`
