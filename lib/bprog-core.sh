@@ -53,11 +53,9 @@ show_help() {
     
     cat << EOF
 
-Usage: bashprog [options] [theme] [percent] [width]
+$(clstring "BashProg" "cyan") $(clstring "version: $BPROG_VERSION" "gray")
 
-Example: bashprog --bar --theme BlocksHolo 75 30
-Example: bashprog --spinner braille
-Example: echo "$\(bashprog --bar --theme BlocksHolo 75 30)"
+Usage: bashprog [options] [theme] ([message] | [percent] [width])
 
 ≡$(clstring "Options" "yellow")≡
   $(help_writer "-h," "--help" "Display this help text")
@@ -72,6 +70,7 @@ Example: echo "$\(bashprog --bar --theme BlocksHolo 75 30)"
   $(help_writer "-bop," "--baropencolor" "Sets the bar open color")
   $(help_writer "-bco," "--barclosecolor" "Sets the bar close color")
   $(help_writer "-pc," "--percentcolor" "Sets the bar percent color")
+  $(help_writer "-v," "--version" "Sets the spinner color")
 
 ≡$(clstring "Examples" "yellow")≡
     longformat:
@@ -80,7 +79,8 @@ Example: echo "$\(bashprog --bar --theme BlocksHolo 75 30)"
     shortformat:
         > bashprog -b -t BlocksHolo 75 30
         > bashprog -s braille
-
+    command substitution:
+        > echo "\$(bashprog --bar --theme BlocksHolo 75 30)"
 EOF
 }
 
@@ -344,6 +344,19 @@ bprog_use_spinner_theme() {
     fi
 }
 
+# ==================================================================
+# Function: bprog_get_version
+# ==================================================================
+# Description:
+#   Get the version of bashprog.
+#
+# Examples:
+#   bprog_get_version
+#
+# =================================================================
+bprog_get_version () {
+    $BPROG_VERSION="$(cat "${BPROG_HOME}/VERSION")"
+}
 # ==================================================================
 # Function: bprog_init
 # ==================================================================
