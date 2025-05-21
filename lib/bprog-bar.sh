@@ -21,7 +21,7 @@ declare -g -A bprog_bar_theme
 bprog_load_bar_theme() {
     local theme_file="$1"
     
-    bprog_debug "$(clstring "[IO]" "bright_magenta") Loading bar theme from file: $theme_file"
+    bprog_debug "$(clstring "bprog_load_bar_theme" "bright_magenta") $(clstring "[IO]" "bright_magenta") Loading bar theme from file: $theme_file"
 
      # Clear existing theme data
     unset bprog_bar_theme
@@ -33,14 +33,14 @@ bprog_load_bar_theme() {
         return 1
     fi
     
-    # Load the theme data
+    # Load the theme data or fail
     bprog_bar_theme[theme]="$(jq -r '.theme' $theme_file)"
     if [[ $? -ne 0 ]]; then
         echo "$(clstring "[ERROR]" "red")> Failed to parse theme file." >&2
         return 1
     fi
 
-    # Load the theme properties
+    # Load the theme ui properties
     bprog_bar_theme[open]="$(jq -r '.open' $theme_file)"
     bprog_bar_theme[close]="$(jq -r '.close' $theme_file)"
     bprog_bar_theme[complete]="$(jq -r '.complete' $theme_file)"
@@ -48,7 +48,7 @@ bprog_load_bar_theme() {
     bprog_bar_theme[pointer]="$(jq -r '.pointer' $theme_file)"
     bprog_bar_theme[description]="$(jq -r '.description // "No description"' $theme_file)"
     
-    bprog_debug "Bar theme '${bprog_bar_theme["theme"]}' loaded successfully"
+    bprog_debug "$(clstring "bprog_load_bar_theme" "bright_magenta") Bar theme '${bprog_bar_theme["theme"]}' loaded successfully"
     
     return 0
 }
@@ -72,6 +72,7 @@ bprog_load_bar_theme() {
 bprog_bar() {
     local percent=$1
     local width=${2:-20}  # Default width is 20 characters
+    local message=${3:-""}
     
     # Check if theme is loaded
     if [[ -z "${bprog_bar_theme["theme"]}" ]]; then
@@ -114,7 +115,11 @@ bprog_bar() {
     
     # no need for a return echo will do it
     # even when called from with in a string repersentation
-    echo "$bar"
+    if [[ -z "$message" ]]; then
+       echo "${bar}"
+    else  
+       echo "${bar} ${message}"
+    fi
 }
 
 # ==================================================================
@@ -151,7 +156,7 @@ bprog_bar_demo() {
 
 # Initialize the bar module
 # ==================================================================
-#*Function: bprog_bar_init
+# Function: bprog_bar_init
 # ==================================================================
 # Description:
 #   Initialize the bar module.
@@ -162,8 +167,9 @@ bprog_bar_demo() {
 # =================================================================
 
 bprog_bar_init() {
-    bprog_debug "Bar module initialized"
+    bprog_debug "$(clstring "bprog_bar_init" "yellow") Bar module initialized"
     return 0
 }
 
+# auto run init on source
 bprog_bar_init
