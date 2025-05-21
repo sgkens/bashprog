@@ -41,6 +41,10 @@ bashprog() {
                 mode="spinner"
                 shift
                 ;;
+            -v|--version)
+                mode="version"
+                shift
+                ;;
             -dm|--demomode)
                 demo=1
                 shift 2
@@ -147,14 +151,24 @@ bashprog() {
                 # switch between all theme output and a specific theme
                 if [[ -z "$list_theme_name" ]]; then
                     bprog_list_themes $list_type $list_theme_name
+                    if [[ $? -ne 0 ]]; then
+                        return 1
+                    else 
+                        return 0
+                    fi
                 else
                     bprog_list_themes $list_type
+                    if [[ $? -ne 0 ]]; then
+                        return 1
+                    else 
+                        return 0
+                    fi
                 fi
                 ;;
             "bar")
                 bprog_debug "$(clstring "bashprog" "cyan" ) Running in bar mode"
                 if [[ "$demo" ==  1 ]]; then 
-                    bprog_debug "$(clstring "bashprog" "cyan" ) switching to bar-demo mode"
+                    bprog_debug "$(clstring "bashprog" "cyan" ) Switching to bar-demo mode"
                     bprog_bar_demo "$theme" "$width"
                 else 
                     bprog_debug "$(clstring "bashprog" "cyan" ) Running in normal mode"
@@ -180,6 +194,11 @@ bashprog() {
                 bprog_debug "$(clstring "bashprog" "cyan" ) Running in rewrite mode"
                 # Rewrite mode logic here
                 clearlines $linecount
+                ;;
+            "version")
+                bprog_debug "$(clstring "bashprog" "cyan" ) Running in version mode"
+                # Rewrite mode logic here
+                echo "bashprog version $BPROG_VERSION"
                 ;;
             *)
                 show_help "1" "No mode" "Use [-b|--bar], [-s|--spinner] or [-l|--list] together with [-dm|--demomode] or [-db|--debug]" "Please specify a mode."

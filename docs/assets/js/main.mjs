@@ -228,7 +228,7 @@ const spinners = JSON.parse(`[
 
 
 window.onload = function() {
-    if(document.location.pathname.includes("bars")){
+    if(document.location.pathname.includes("bars") || document.location.pathname == "/"){
         // Loop through each theme and create a progress bar for it
         themes.forEach(theme => {
             handleExampleProgressBars({

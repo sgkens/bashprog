@@ -6,6 +6,6 @@
     "open": "[",
     "close": "]",
     "complete": "&",
-    "incomplete": " ",
+    "incomplete": "_",
     "pointer": "&"
 }

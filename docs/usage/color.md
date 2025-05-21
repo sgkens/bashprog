@@ -9,6 +9,7 @@ nav_order: 3
 
 <p class="fs-6 fw-300 text-dusk-400">Bashprog supports the default terminal color range and 256-bit color ranges.</p>
 
+Color is implemented using the [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code#Colors) for terminals.
 
 **24-bit Color Range**
   - <span class="text-dusk-000">Default Range</span>: (<span class="text-color-blue">blue</span>, <span class="text-color-green">green</span>, <span class="text-color-red">red</span>, <span class="text-color-yellow">yellow</span>, <span class="text-color-magenta">magenta</span>, <span class="text-color-cyan">cyan</span>,<span class="text-color-white">white</span>, <span class="text-color-gray">gray</span>, <span class="text-color-black">black</span>)

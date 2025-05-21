@@ -58,7 +58,9 @@ show_help() {
     cat << EOF
 $(clstring "BashProg" "cyan") ${BPROG_VERSION}
 
-Usage: bashprog [options] [theme] [percent] [width]
+$(clstring "BashProg" "cyan") $(clstring "version: $BPROG_VERSION" "gray")
+
+Usage: bashprog [options] [theme] ([message] | [percent] [width])
 
 ≡$(clstring "Options" "yellow")≡
   $(help_writer "-h," "--help" "Display this help text")
@@ -75,20 +77,17 @@ Usage: bashprog [options] [theme] [percent] [width]
   $(help_writer "-boc," "--baropencolor" "Sets the bar open color")
   $(help_writer "-bcc," "--barclosecolor" "Sets the bar close color")
   $(help_writer "-pc," "--percentcolor" "Sets the bar percent color")
-  $(help_writer "-hp," "--hidePercent" "Omits the percent from the bar")
+  $(help_writer "-v," "--version" "Sets the spinner color")
 
 ≡$(clstring "Examples" "yellow")≡
-    $(clstring "Example" "bright_gray"): bashprog --bar --theme BlocksHolo 75 30
-    $(clstring "Example" "bright_gray"): bashprog --spinner braille
-
->>> $( 
-        if [[ "$error" == 1 ]]; then 
-            echo "$(clstring "Command Error:" "red") $(clstring "$error_desc" "bright_red")";
-            echo "       $(clstring "$mode" "yellow")";
-            echo "       $(clstring "$command" "cyan")";
-        fi 
-    )
-
+    longformat:
+        > bashprog --bar --theme BlocksHolo 75 30
+        > bashprog --spinner braille
+    shortformat:
+        > bashprog -b -t BlocksHolo 75 30
+        > bashprog -s braille
+    command substitution:
+        > echo "\$(bashprog --bar --theme BlocksHolo 75 30)"
 EOF
 }
 
@@ -355,6 +354,19 @@ bprog_use_spinner_theme() {
     fi
 }
 
+# ==================================================================
+# Function: bprog_get_version
+# ==================================================================
+# Description:
+#   Get the version of bashprog.
+#
+# Examples:
+#   bprog_get_version
+#
+# =================================================================
+bprog_get_version () {
+    $BPROG_VERSION="$(cat "${BPROG_HOME}/VERSION")"
+}
 # ==================================================================
 # Function: bprog_init
 # ==================================================================
