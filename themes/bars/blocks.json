@@ -1,0 +1,11 @@
+{
+    "theme": "blocks",
+    "$schema": "https://raw.githubusercontent.com/sgkens/bashprog/main/themes/schema-bars.json",
+    "types": ["ASCII-Advanced"],
+    "description": "Solid blocks for a clean look",
+    "open": " ",
+    "close": " ",
+    "complete": "█",
+    "incomplete": "░",
+    "pointer": "▒"
+}
