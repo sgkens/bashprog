@@ -1,0 +1,11 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sgkens/bashprog/main/themes/schemas/bars.json",
+    "theme": "",
+    "types": [],
+    "description": "",
+    "open": "",
+    "close": "",
+    "complete": "",
+    "incomplete": "",
+    "pointer": ""
+}

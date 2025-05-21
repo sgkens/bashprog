@@ -50,8 +50,13 @@ help_writer() {
 }
 
 show_help() {
-    
+    error="$1"
+    mode="$2"
+    command="$3"
+    error_desc="$4"
+
     cat << EOF
+$(clstring "BashProg" "cyan") ${BPROG_VERSION}
 
 $(clstring "BashProg" "cyan") $(clstring "version: $BPROG_VERSION" "gray")
 
@@ -61,14 +66,16 @@ Usage: bashprog [options] [theme] ([message] | [percent] [width])
   $(help_writer "-h," "--help" "Display this help text")
   $(help_writer "-d," "--debug" "Sets BPROG_DEBUG to 1, enables debug mode")
   $(help_writer "-l," "--list [bars|spinners]" "List available themes for bars or spinners")
+  $(help_writer "-m," "--message" "Sets the message to display for the bars or spinners")
   $(help_writer "-b," "--bar" "Switch to bar mode")
   $(help_writer "-s," "--spinner" "Switch to spinner mode")
+  $(help_writer "-rw," "--rewrite" "Switch to rewrite mode")
   $(help_writer "-dm," "--demomode" "Switch to Demo mode")
   $(help_writer "-bc," "--barcolor" "Sets the bar color")
   $(help_writer "-bbg," "--barbgcolor" "Sets the bar background color")
   $(help_writer "-ptc," "--pointercolor" "Sets the bar pointer color")
-  $(help_writer "-bop," "--baropencolor" "Sets the bar open color")
-  $(help_writer "-bco," "--barclosecolor" "Sets the bar close color")
+  $(help_writer "-boc," "--baropencolor" "Sets the bar open color")
+  $(help_writer "-bcc," "--barclosecolor" "Sets the bar close color")
   $(help_writer "-pc," "--percentcolor" "Sets the bar percent color")
   $(help_writer "-v," "--version" "Sets the spinner color")
 
@@ -168,7 +175,7 @@ bprog_load_module() {
     
     local module_path="${BPROG_HOME}/lib/${module_name}.sh"
 
-    bprog_debug "Loading module $(bkvp $module_name $module_path)"
+    bprog_debug "$(clstring "bprog_load_module" "yellow") Loading module $(bkvp $module_name $module_path)"
     
     if [[ -f "$module_path" ]]; then
         source "$module_path"
@@ -195,7 +202,7 @@ export -f bprog_load_module
 #   bprog_list_themes spinners
 #
 # =================================================================
-
+#TODO: Add switch to list individual theme both bars and spinners
 bprog_list_themes() {
     local theme_type="$1"  # "bars" or "spinners"
     local theme_name="$2" # optional theme name
@@ -213,8 +220,9 @@ bprog_list_themes() {
     fi
     
     echo "╭──────────────────────────────────╮"
-    echo "├ Available $(clstring "$theme_type" "bright_cyan") themes:       ┤"
+    echo "├    Available bashprog themes     ┤"
     echo "├──────────────────────────────────┤"
+    echo "├─• $(clstring "$theme_type" "bright_cyan")"
     for theme_file in "$theme_dir"/*.json; do
         if [[ -f "$theme_file" ]]; then
             local theme_name=""
@@ -276,11 +284,13 @@ bprog_get_theme_path() {
     
     local theme_path="${BPROG_HOME}/themes/${theme_type}/${theme_name}.json"
     
+    bprog_debug "$(clstring "bprog_get_theme_path" "yellow") requesting themepath Generation : $(clstring "$theme_path" "cyan")"
+
     if [[ -f "$theme_path" ]]; then
         echo "$theme_path"
         return 0
     else
-        echo "$(clstring "[ERROR]" "red"): Theme '$theme_name' not found at $theme_path" >&2
+        echo "$(clstring "[ERROR]>" "red") Theme '$theme_name' not found at $theme_path" >&2
         return 1
     fi
 }
@@ -304,7 +314,7 @@ bprog_use_bar_theme() {
     local theme_name="$1"
     local theme_path=$(bprog_get_theme_path "bars" "$theme_name")
     
-    bprog_debug "Loading bar theme from path: $theme_path"
+    bprog_debug "$(clstring "bprog_use_bar_theme" "yellow") requesting theme: $theme_name"
 
     if [[ -f "$theme_path" ]]; then
         bprog_load_bar_theme "$theme_path"
@@ -334,7 +344,7 @@ bprog_use_spinner_theme() {
     local theme_name="$1"
     local theme_path=$(bprog_get_theme_path "spinners" "$theme_name")
     
-    bprog_debug "Loading spinner theme from path: $theme_path"
+    bprog_debug "$(clstring "bprog_use_spinner_theme" "yellow") Loading spinner theme from path: $theme_path"
 
     if [[ -f "$theme_path" ]]; then
         bprog_load_spinner_theme "$theme_path"
@@ -378,8 +388,9 @@ bprog_init() {
     bprog_load_module "bprog-bar"
     bprog_load_module "bprog-spinner"
     bprog_load_module "bprog-serializer-cachce" #*Completed
+    bprog_load_module "bashprog-command"
     
-    bprog_debug "Initializing bashprog modules"
+    bprog_debug "$(clstring "bprog_init" "yellow") Initializing bashprog modules"
 
     return 0
 }
