@@ -1,13 +1,13 @@
 #!/bin/bash
 # ==================================================================
 # File: bashprog.sh
-# Description: Main entry point for the bashprog library
+# Description: main command function of module
 # ==================================================================
 bashprog() {
     
     # Default values
     mode=""
-    theme=""
+    linecount=1
     bar_color=""
     bar_bg_color=""
     pointer_color=""
@@ -16,14 +16,18 @@ bashprog() {
     percent_color=""
     spinner_color=""
     spinner_bg_color=""
-    percent=0
+    theme=""
     width=50
+    percent=0
+    message=""
+    list_type=""
+    demo=0
 
     # Parse command line arguments
-    while [[ $# -gt 0 ]]; do
+    for arg in "$@"; do
         case "$1" in
             -h|--help)
-                show_help
+                show_help "0" "" "" ""
                 ;;
             -d|--debug)
                 BPROG_DEBUG=1
@@ -37,13 +41,20 @@ bashprog() {
                 mode="spinner"
                 shift
                 ;;
-            -t|--theme)
-                theme="$2"
+            -dm|--demomode)
+                demo=1
                 shift 2
                 ;;
-            -dm|--demomode)
-                mode="demo"
-                shift
+            -l|--list)
+                mode="list"
+                list_type="$2"
+                list_theme_name="$3"
+                shift 2
+                ;;
+            -rw|--rewrite)
+                mode="rewrite"
+                linecount="$2"
+                shift  2
                 ;;
             -bc|--barcolor)
                 bar_color="$2"
@@ -82,50 +93,99 @@ bashprog() {
                 elif [[ "$1" =~ ^[0-9]+$ ]]; then
                     width="$1"
                 else
-                    echo "Unknown option: $1"
-                    show_help
+                    if [[ -z "$1" ]]; then
+                        if [[ $mode == "bar" ]]; then
+                            message="Loading..."
+                        elif [[ $mode == "spinner" ]]; then
+                            message="Processing..."
+                        fi
+                    else
+                        message="$1"
+                    fi
                 fi
                 shift
                 ;;
             esac
         done
         # Check if the mode is set
-
-        bashprog_debug "Mode: $mode" # demo, bar, spinner
-        bashprog_debug "Theme: $theme"
-        bashprog_debug "Percent: $percent"
-        bashprog_debug "Width: $width"
-        bashprog_debug "Bar Color: $bar_color"
-        bashprog_debug "Pointer Color: $pointer_color"
-        bashprog_debug "Bar Open Color: $bar_open_color"
-        bashprog_debug "Bar Close Color: $bar_close_color"
-        bashprog_debug "Percent Color: $percent_color"
-        bashprog_debug "Spinner Color: $spinner_color"
-        #bashprog_debug "Spinner Background Color: $spinner_bg_color"
-        bashprog_debug "Debug: $debug"
-        #bashprog_debug "Bar Background Color: $bar_bg_color"
-        bashprog_debug "Pointer Color: $pointer_color"
-
-
+        bprog_debug "----------------------"
+        bprog_debug "[OPTIONS-Parse command line arguments]"
+        bprog_debug "----------------------"
+        bprog_debug "Mode__________________: $mode" # demo, bar, spinner
+        bprog_debug "Demo__________________: $demo"
+        bprog_debug "----------------------"
+        bprog_debug "Debug trigger_________: $BPROG_DEBUG"
+        bprog_debug "Bar Color_____________: $bar_color"
+        bprog_debug "Bar Background Color__: $bar_bg_color"
+        bprog_debug "Bar Open Color________: $bar_open_color"
+        bprog_debug "Bar Close Color_______: $bar_close_color"
+        bprog_debug "Pointer Color_________: $pointer_color"
+        bprog_debug "Percent Color_________: $percent_color"
+        bprog_debug "----------------------"
+        bprog_debug "[THEME PARAMS]"
+        bprog_debug "----------------------"
+        bprog_debug "Theme_________________: $theme"
+        bprog_debug "Width_________________: $width"
+        bprog_debug "Percent_______________: $percent"
+        bprog_debug "Message_______________: $message"
+        bprog_debug "______________________"
+        bprog_debug "List Type_____________: $list_type"
+        bprog_debug "List Theme Name_______: $list_theme_name"
+        bprog_debug "----------------------"
+        bprog_debug "Line Count____________: $linecount"
+        bprog_debug "----------------------"
 
         # Main logic based on mode
         case "$mode" in
+            "list")
+                 bprog_debug "Running in list mode"
+                # check if user has specified a list type
+                if [[ -z "$list_type" ]]; then
+                    show_help "1" "List Mode Selected" "But requires list type" "List mode requires a list type [bars] or [spinners]"
+                    return 1
+                fi
+                # switch between all theme output and a specific theme
+                if [[ -z "$list_theme_name" ]]; then
+                    bprog_list_themes $list_type $list_theme_name
+                else
+                    bprog_list_themes $list_type
+                fi
+                ;;
             "bar")
-                echo "Running in bar mode"
-                # Bar mode logic here
-
+                bprog_debug "Running in bar mode"
+                if [[ "$demo" ==  1 ]]; then 
+                    bprog_debug "switching to bar-demo mode"
+                    bprog_bar_demo "$theme" "$width"
+                else 
+                    bprog_debug "Running in normal mode"
+                    bprog_use_bar_theme "$theme"
+                    bprog_bar "$percent" "$width" "$message"
+                fi
                 ;;
             "spinner")
-                echo "Running in spinner mode"
-                # Spinner mode logic here
+                bprog_debug "Running in spinner mode"
+                if [[ "$demo" ==  1 ]]; then
+                    bprog_debug "switching to spinner-demo mode"
+                    bprog_spinner_demo "$theme" "$message"
+                    echo " $message"
+                else
+                    bprog_debug "Running in normal mode"
+                    # Spinner mode logic here
+                    bprog_use_spinner_theme "$theme"
+                    bprog_spinner
+                    echo " $message"
+                fi
                 ;;
-            "demo")
-                echo "Running in demo mode"
-                # Demo mode logic - perhaps show all themes or modes
+            "rewrite")
+                bprog_debug "Running in rewrite mode"
+                # Rewrite mode logic here
+                clearlines $linecount
                 ;;
             *)
-                echo "No mode specified. Use -b/--bar, -s/--spinner, or -dm/--demomode"
-                show_help
+                echo "$(clstring "bashprog" "cyan") v0.5.1"
+                echo "$(clstring "No mode specified.", "red")"
+                echo ""
+                show_help "1" "No mode" "Use [-b|--bar], [-s|--spinner] or [-l|--list] together with [-dm|--demomode] or [-db|--debug]" "Please specify a mode."
                 ;;
         esac
 }
