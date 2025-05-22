@@ -26,7 +26,7 @@
 : "${BPROG_VERSION:="v$(cat ${BPROG_HOME}/VERSION)"}"
 
 # Set the default debug mode
-BPROG_DEBUG=1 # default is 0, set with bprog_set_debug 1 or bprog with --debug flag
+#BPROG_DEBUG=1 # default is 0, set with bprog_set_debug 1 or bprog with --debug flag
 
 # Dependancies
 source ${BPROG_HOME}/lib/bkvp.sh
