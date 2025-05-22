@@ -361,10 +361,9 @@ bprog_init() {
     bprog_check_dependencies
     
     # Load the core modules
-    bprog_load_module "clearlines"
     bprog_load_module "bprog-bar"
     bprog_load_module "bprog-spinner"
-    bprog_load_module "bprog-serializer-cachce" #*Completed
+    bprog_load_module "bprog-cache" #*Completed
     
     bprog_debug "Initializing bashprog modules"
 

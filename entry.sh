@@ -28,9 +28,11 @@
 BPROG_DEBUG=1 # default is 0, set with bprog_set_debug 1 or bprog with --debug flag
 
 # Dependancies
-# Import the necessary libraries
 source ${BPROG_HOME}/lib/bkvp.sh
 source ${BPROG_HOME}/lib/clstring.sh
+source ${BPROG_HOME}/lib/clearlines.sh
+
+# Import the core library
 source ${BPROG_HOME}/lib/bprog-core.sh
 
 bprog_debug "BPROG_HOME: $BPROG_HOME"
