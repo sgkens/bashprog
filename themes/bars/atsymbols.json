@@ -7,5 +7,5 @@
     "close": "]",
     "complete": "@",
     "incomplete": ".",
-    "pointer": "@"
+    "pointer": ">"
 }

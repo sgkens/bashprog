@@ -27,7 +27,7 @@ declare -g -i bprog_spinner_max_frame
 bprog_load_spinner_theme() {
     local theme_file="$1"
     
-    bprog_debug "Loading spinner theme from $theme_file"
+    bprog_debug "$(clstring "[IO]" "bright_magenta") Loading $(clstring "$theme_file" "yellow") spinner theme from"
     
     # Check if file exists
     if [[ ! -f "$theme_file" ]]; then
@@ -131,6 +131,7 @@ bprog_spinner() {
 bprog_spinner_complete() {
 
     local message="$1"
+
     echo -e "${bprog_spinner_theme[complete]} $message"
 
 }
@@ -178,7 +179,7 @@ bprog_spinner_demo() {
 
 # Initialize the spinner module
 # ==================================================================
-#*Function: bprog_spinner_init
+# Function: bprog_spinner_init
 # ==================================================================
 # Description:
 #   Initialize the spinner module.
@@ -190,7 +191,7 @@ bprog_spinner_demo() {
 
 bprog_spinner_init() {
 
-    bprog_debug "Spinner module initialized"
+    bprog_debug "$(clstring "bprog_spinner_init" "yellow") Spinner module initialized"
     return 0
 
 }
