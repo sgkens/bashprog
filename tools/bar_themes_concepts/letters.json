@@ -1,0 +1,10 @@
+{
+    "theme": "letters",
+    "description": "Alphabetical progress indicators",
+    "open": "[",
+    "close": "]",
+    "complete": "A",
+    "incomplete": " ",
+    "pointer": "A",
+    "example": "[ABCDE     ] 50% Complete"
+}

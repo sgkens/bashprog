@@ -1,0 +1,162 @@
+@use "sass:color";
+
+/*Variables for custom callouts for just-the-docs*/
+
+/* 
+Some Extended text-color-shades
+=========================
+*/
+
+$tigerorange: #F96815;
+$oceanblue: #3478BD;
+$leafgreen: #9DC183;
+$tealblue: #008080;
+$honey: #FACB6E;
+$lavender: #C2A8D3;
+$dusk: #5B4F78;
+$earth: #1b1a22;
+// Scaling 
+// ========
+// Assigning the color to a variable
+$tigerorange-000: $tigerorange;
+// begin scaling
+$tigerorange-100: mix(#ffffff, $tigerorange-000, 5%);
+// Adjusting the color
+$tigerorange-200: color.scale($tigerorange-100, $lightness: 10%);
+$tigerorange-300: color.scale($tigerorange-100, $lightness: 20%);
+$tigerorange-400: color.scale($tigerorange-100, $lightness: 30%);
+
+$oceanblue-000: $oceanblue;
+// begin scaling
+$oceanblue-100: mix(#ffffff, $oceanblue-000, 5%);
+// Adjusting the color
+$oceanblue-200: color.scale($oceanblue-100, $lightness: 10%);
+$oceanblue-300: color.scale($oceanblue-100, $lightness: 20%);
+$oceanblue-400: color.scale($oceanblue-100, $lightness: 30%);
+
+$leafgreen-000: $leafgreen;
+// begin scaling
+$leafgreen-100: mix(#ffffff, $leafgreen-000, 5%);
+// Adjusting the color
+$leafgreen-200: color.scale($leafgreen-100, $lightness: 10%);
+$leafgreen-300: color.scale($leafgreen-100, $lightness: 20%);
+$leafgreen-400: color.scale($leafgreen-100, $lightness: 30%);
+
+$tealblue-000: $tealblue;
+// begin scaling
+$tealblue-100: mix(#ffffff, $tealblue-000, 5%);
+// Adjusting the color
+$tealblue-200: color.scale($tealblue-100, $lightness: 10%);
+$tealblue-300: color.scale($tealblue-100, $lightness: 20%);
+$tealblue-400: color.scale($tealblue-100, $lightness: 30%);
+
+$honey-000: $honey;
+// begin scaling
+$honey-100: mix(#ffffff, $honey-000, 5%);
+// Adjusting the color
+$honey-200: color.scale($honey-100, $lightness: 10%);
+$honey-300: color.scale($honey-100, $lightness: 20%);
+$honey-400: color.scale($honey-100, $lightness: 30%);
+
+$lavender-000: $lavender;
+// begin scaling
+$lavender-100: mix(#ffffff, $lavender-000, 5%);
+// Adjusting the color
+$lavender-200: color.scale($lavender-100, $lightness: 10%);
+$lavender-300: color.scale($lavender-100, $lightness: 20%);
+$lavender-400: color.scale($lavender-100, $lightness: 30%);
+
+$dusk-000: $dusk;
+// begin scaling
+$dusk-100: mix(#ffffff, $dusk-000, 5%);
+// Adjusting the color
+$dusk-200: color.scale($dusk-100, $lightness: 10%);
+$dusk-300: color.scale($dusk-100, $lightness: 20%);
+$dusk-400: color.scale($dusk-100, $lightness: 30%);
+
+$earth-000: $earth;
+// begin scaling
+$earth-100: mix(#ffffff, $earth-000, 5%);
+// Adjusting the color
+$earth-200: color.scale($earth-100, $lightness: 10%);
+$earth-300: color.scale($earth-100, $lightness: 20%);
+$earth-400: color.scale($earth-100, $lightness: 30%);
+// Text color classes
+// =========================
+
+.text-tigerorange-000 { color: $tigerorange-000; }
+.text-tigerorange-000-bg { background-color: $tigerorange-000;}
+.text-tigerorange-100 { color: $tigerorange-100; }
+.text-tigerorange-100-bg { background-color: $tigerorange-100;}
+.text-tigerorange-200 { color: $tigerorange-200; }
+.text-tigerorange-200-bg { background-color: $tigerorange-200;}
+.text-tigerorange-300 { color: $tigerorange-300; }
+.text-tigerorange-300-bg { background-color: $tigerorange-300;}
+.text-tigerorange-400 { color: $tigerorange-400; }
+.text-tigerorange-400-bg { background-color: $tigerorange-400;}
+
+.text-oceanblue-000 { color: $oceanblue-000; }
+.text-oceanblue-000-bg { background-color: $oceanblue-000;}
+.text-oceanblue-100 { color: $oceanblue-100; }
+.text-oceanblue-100-bg { background-color: $oceanblue-100;}
+.text-oceanblue-200 { color: $oceanblue-200; }
+.text-oceanblue-200-bg { background-color: $oceanblue-200;}
+.text-oceanblue-300 { color: $oceanblue-300; }
+.text-oceanblue-300-bg { background-color: $oceanblue-300;}
+.text-oceanblue-400 { color: $oceanblue-400; }
+.text-oceanblue-400-bg { background-color: $oceanblue-400;}
+
+.text-leafgreen-000 { color: $leafgreen-000; }
+.text-leafgreen-000-bg { background-color: $leafgreen-000;}
+.text-leafgreen-100 { color: $leafgreen-100; }
+.text-leafgreen-100-bg { background-color: $leafgreen-100;}
+.text-leafgreen-200 { color: $leafgreen-200; }
+.text-leafgreen-200-bg { background-color: $leafgreen-200;}
+.text-leafgreen-300 { color: $leafgreen-300; }
+.text-leafgreen-300-bg { background-color: $leafgreen-300;}
+.text-leafgreen-400 { color: $leafgreen-400; }
+.text-leafgreen-400-bg { background-color: $leafgreen-400;}
+
+.text-tealblue-000 { color: $tealblue-000; }
+.text-tealblue-000-bg { background-color: $tealblue-000;}
+.text-tealblue-100 { color: $tealblue-100; }
+.text-tealblue-100-bg { background-color: $tealblue-100;}
+.text-tealblue-200 { color: $tealblue-200; }
+.text-tealblue-200-bg { background-color: $tealblue-200;}
+.text-tealblue-300 { color: $tealblue-300; }
+.text-tealblue-300-bg { background-color: $tealblue-300;}
+.text-tealblue-400 { color: $tealblue-400; }
+.text-tealblue-400-bg { background-color: $tealblue-400;}
+
+.text-honey-000 { color: $honey-000; }
+.text-honey-000-bg { background-color: $honey-000;}
+.text-honey-100 { color: $honey-100; }
+.text-honey-100-bg { background-color: $honey-100;}
+.text-honey-200 { color: $honey-200; }
+.text-honey-200-bg { background-color: $honey-200;}
+.text-honey-300 { color: $honey-300; }
+.text-honey-300-bg { background-color: $honey-300;}
+.text-honey-400 { color: $honey-400; }
+.text-honey-400-bg { background-color: $honey-400;}
+
+.text-lavender-000 { color: $lavender-000; }
+.text-lavender-000-bg { background-color: $lavender-000;}
+.text-lavender-100 { color: $lavender-100; }
+.text-lavender-100-bg { background-color: $lavender-100;}
+.text-lavender-200 { color: $lavender-200; }
+.text-lavender-200-bg { background-color: $lavender-200;}
+.text-lavender-300 { color: $lavender-300; }
+.text-lavender-300-bg { background-color: $lavender-300;}
+.text-lavender-400 { color: $lavender-400; }
+.text-lavender-400-bg { background-color: $lavender-400;}
+
+.text-dusk-000 { color: $dusk-000; }
+.text-dusk-000-bg { background-color: $dusk-000;}
+.text-dusk-100 { color: $dusk-100; }
+.text-dusk-100-bg { background-color: $dusk-100;}
+.text-dusk-200 { color: $dusk-200; }
+.text-dusk-200-bg { background-color: $dusk-200;}
+.text-dusk-300 { color: $dusk-300; }
+.text-dusk-300-bg { background-color: $dusk-300;}
+.text-dusk-400 { color: $dusk-400; }
+.text-dusk-400-bg { background-color: $dusk-400;}

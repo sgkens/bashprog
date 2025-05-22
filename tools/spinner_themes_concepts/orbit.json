@@ -1,0 +1,11 @@
+{
+    "theme": "orbit",
+    "description": "Orbiting planet animation",
+    "frames": [
+        "○◌◎●",
+        "◌◎●○",
+        "◎●○◌",
+        "●○◌◎"
+    ],
+    "complete": "○○○○"
+}

@@ -1,0 +1,15 @@
+{
+    "theme": "wave",
+    "description": "ASCII wave pattern",
+    "frames": [
+        "~=~   ",
+        "~==~  ",
+        "~===~ ",
+        "~====~",
+        " ~===~",
+        "  ~==~",
+        "   ~=~",
+        "     ~"
+    ],
+    "complete": "======"
+}

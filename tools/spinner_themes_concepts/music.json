@@ -1,0 +1,13 @@
+{
+    "theme": "music",
+    "description": "Dancing musical notes",
+    "frames": [
+        "♩ ♪ ♫",
+        "♪ ♫ ♬",
+        "♫ ♬ ♩",
+        "♬ ♩ ♪",
+        "♩ ♪ ♫",
+        "♪ ♫ ♬"
+    ],
+    "complete": "✓ ✓ ✓"
+}

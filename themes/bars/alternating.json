@@ -1,0 +1,11 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sgkens/bashprog/main/themes/schema-bars.json",
+    "types": ["ASCII"],
+    "theme": "alternating",
+    "description": "Alternating slashes for dynamic look",
+    "open": "[",
+    "close": "]",
+    "complete": "/-",
+    "incomplete": " ",
+    "pointer": "/"
+}

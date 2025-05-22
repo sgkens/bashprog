@@ -1,0 +1,10 @@
+{
+    "theme": "ace",
+    "description": "All seeing eye progress bar",
+    "open": "(Ó)═╣",
+    "close": "│└",
+    "complete": "▓",
+    "incomplete": "░",
+    "pointer": "▒",
+    "example": "(Ó)═╣▓▓▓▓▓▓▓▓▓▓▒░░░░░░░░│└ 50% Complete"
+}

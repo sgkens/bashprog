@@ -1,0 +1,6 @@
+{
+    "theme": "Logs",
+    "description": "A spinner that uses logs to represent the loading state.",
+    "frames": [ "▖", "▝", "▗", "▘" ],
+    "complete": "✔"
+}

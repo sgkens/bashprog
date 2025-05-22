@@ -1,0 +1,13 @@
+{
+    "theme": "bounce",
+    "description": "Bouncing ball animation",
+    "frames": [
+        "⠁",
+        "⠂",
+        "⠄",
+        "⠠",
+        "⠐",
+        "⠈"
+    ],
+    "complete": "⚪"
+}
