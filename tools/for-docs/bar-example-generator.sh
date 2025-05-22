@@ -29,7 +29,7 @@ bar_svg_example_md_generator() {
 
     # bash multi-line string
 local svg_theme=$(cat <<EOF
-<svg viewBox="0 0 410 82" xmlns="http://www.w3.org/2000/svg">
+<svg id="${theme_name}_svg" viewBox="0 0 410 85" xmlns="http://www.w3.org/2000/svg">
   <!-- Background rectangle -->
   <rect width="100%" height="100%" fill="#1e1e1e"/>
   
@@ -38,16 +38,12 @@ local svg_theme=$(cat <<EOF
     <!-- Opening bracket - fixed position -->
     <tspan x="20" y="40" id="${theme_name}_progressOpen" fill="${opening_color}">${opening_char}</tspan>
     
-    <!-- Progress bar area - fixed width with 30 character spaces -->
     <tspan x="35" y="40">
-      <!-- Progress fill characters will be placed here, with fixed width -->
-      <tspan id="${theme_name}_progressFill" fill="${fill_color}">${fill_char}</tspan>
-      <!-- Empty space characters will be placed here -->
-      <tspan id="${theme_name}_progressEmpty" fill="${empty_color}">${empty_char}</tspan>
+      <tspan id="${theme_name}_progressFill" fill="${fill_color}">${fill_char}</tspan><tspan id="${theme_name}_progressEmpty" fill="${empty_color}">${empty_char}</tspan>
     </tspan>
     
     <!-- Closing bracket - fixed position -->
-    <tspan x="335" y="40" id="${theme_name}_progressClose" fill="${closing_color}">${closing_char}</tspan>
+    <tspan x="338" y="40" id="${theme_name}_progressClose" fill="${closing_color}">${closing_char}</tspan>
     
     <!-- Percentage display - fixed position -->
     <tspan x="355" y="40" id="${theme_name}_percentDisplay" fill="${percentage_color}">0%</tspan>
@@ -215,18 +211,6 @@ parent: Bars
 ---
 
 ### **Three modes available when using the bar mode:**
-
-{: .label .label-green }
-Bar Mode
-
-{: .label .label-blue }
-Demo Mode
-
-{: .label .label-yellow }
-Debug Mode
-
----
-
 
 {: .bar-mode}
 Switch \`--bar\` or \`-b\` to call the progress bar generator.
