@@ -27,8 +27,8 @@ bprog_bar 10 100
 # ==================================================================
 # spinner themes
 # ==================================================================
-bprog_use_spinner_theme "bits"
-bprog_add_theme_to_cache "bits" "spinner"
+bprog_use_spinner_theme "angles"
+bprog_add_theme_to_cache "angles" "spinner"
 bprog_spinner
 bprog_spinner_complete "Loading"
 
