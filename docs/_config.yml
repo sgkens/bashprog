@@ -2,7 +2,7 @@ title: BashProg
 description: Bash Progress Bar Generator
 theme: just-the-docs
 color_scheme: dark
-# logo: "/assets/images/bashprog.png"
+logo: "/assets/images/bashprog-logo+text.png"
 # favicon_ico: "favicon.ico"
 
 search_enabled: true
